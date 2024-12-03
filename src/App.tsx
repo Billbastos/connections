@@ -93,6 +93,8 @@ function App() {
     if (item.connected) {
       return {
         background: groups.find((g) => g.connections.includes(item.id))?.color,
+        borderColor: groups.find((g) => g.connections.includes(item.id))?.color,
+        fontWeight: 'bold',
         color: '#333',
       }
     }
@@ -121,7 +123,7 @@ function App() {
       const top = rect?.bottom ?? 0
       const left = rect?.left ?? 0
       nodes.push(
-        <div className='pill-container' style={{ width, top: top - 25, left }}>
+        <div className='pill-container' style={{ width, top: top - 20, left }}>
           <span key={connected[i * MAX_TERMS].id} className='pill'>
             {group?.message}
           </span>

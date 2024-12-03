@@ -7,6 +7,7 @@
 
 .table-container {
   overflow: hidden; /* Ensures the rounded corners work properly */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
 table {
