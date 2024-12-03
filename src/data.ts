@@ -1,7 +1,8 @@
 export const groups = [
   {
     connections: [1, 2, 3, 4],
-    message: 'Parabéns. Vocês merecem muito pelo esforço que fizeram este ano.',
+    message:
+      'O correto é "Tuition is fully paid". Parabéns! Vocês merecem pelo esforço que fizeram esse ano.',
     color: '#B272E0',
   },
   { connections: [5, 6, 7, 8], message: 'Membros do x-men', color: '#4690EB' },

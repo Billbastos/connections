@@ -105,7 +105,7 @@ function App() {
   }
 
   function restart() {
-    setConnections(data)
+    setConnections(shuttle(data))
     setWinner(false)
     setLives(MAX_LIVES)
   }
