@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import './App.css'
-import { data, groups } from './data'
+import { data, groups, GroupId } from './data'
 import shuttle from 'lodash/shuffle'
 
 const MAX_TERMS = 4
@@ -70,16 +70,36 @@ function App() {
   }
 
   function moveRowToTop(checkedItems: number[]) {
-    const newMap = connections.map((i) => {
+    const updatedConnections = connections.map((i) => {
       if (checkedItems.includes(i.id)) {
         return { ...i, connected: true, checked: false }
       }
       return i
     })
-    const allConnected = newMap.filter((i) => i.connected)
+
+    const mapAllConnectedToGroups = updatedConnections
+      .filter((i) => i.connected)
+      .reduce((acc: Record<GroupId, number[]>, i: (typeof data)[0]) => {
+        const group = groups.find((g) => g.connections.includes(i.id))
+        if (group && acc[group.id]) {
+          acc[group.id].push(i.id)
+        } else if (group) {
+          acc[group.id] = [i.id]
+        }
+        return acc
+      }, {} as Record<GroupId, number[]>)
+
+    const sortedGroupItems = Object.keys(mapAllConnectedToGroups).flatMap(
+      (val) => mapAllConnectedToGroups[val as GroupId].sort((a, b) => a - b)
+    )
+
+    const connectedItems = sortedGroupItems.map((id) =>
+      updatedConnections.find((i) => i.id === id)
+    ) as (typeof data)[0][]
+
     setConnections([
-      ...allConnected,
-      ...newMap.filter((i) => i.connected === false),
+      ...connectedItems,
+      ...updatedConnections.filter((i) => i.connected === false),
     ])
   }
 
@@ -123,7 +143,11 @@ function App() {
       const top = rect?.bottom ?? 0
       const left = rect?.left ?? 0
       nodes.push(
-        <div className='pill-container' style={{ width, top: top - 20, left }}>
+        <div
+          key={`pill-${i}`}
+          className='pill-container'
+          style={{ width, top: top - 20, left }}
+        >
           <span key={connected[i * MAX_TERMS].id} className='pill'>
             {group?.message}
           </span>

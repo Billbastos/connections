@@ -1,17 +1,25 @@
+export type GroupId = 'crazy' | 'hard' | 'medium' | 'easy'
 export const groups = [
   {
+    id: 'crazy' as GroupId,
     connections: [1, 2, 3, 4],
-    message:
-      'O correto é "Tuition is fully paid". Parabéns! Vocês merecem pelo esforço que fizeram esse ano.',
+    message: 'Parabéns! Vocês merecem pelo esforço que fizeram esse ano.',
     color: '#B272E0',
   },
-  { connections: [5, 6, 7, 8], message: 'Membros do x-men', color: '#4690EB' },
   {
+    id: 'hard' as GroupId,
+    connections: [5, 6, 7, 8],
+    message: 'Membros do x-men',
+    color: '#4690EB',
+  },
+  {
+    id: 'medium' as GroupId,
     connections: [9, 10, 11, 12],
     message: 'Iniciais dos times da premier league',
     color: '#52C878',
   },
   {
+    id: 'easy' as GroupId,
     connections: [13, 14, 15, 16],
     message: 'Um dos personagens da dupla dos programas de criança',
     color: '#FFDB58',
@@ -27,7 +35,7 @@ export const data = [
   },
   {
     id: 1,
-    name: 'tuition',
+    name: 'The tuition',
     checked: false,
     connected: false,
   },
